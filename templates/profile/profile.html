@@ -1,0 +1,82 @@
+{% extends 'base/base.html' %}
+{% load static%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container" style="margin-top:1.5%;">
+    <div class="row">
+        <div class="card shadow col-md-6">
+          <div class="row">
+            <div class="card-image">
+                <div class="card shadow col-md-6">
+                {% if profile_detail.profile_picture %}
+                    <img class="rounded-circle account-img" src="{{profile_detail.profile_picture.cdn_url}}" alt="profile-photo" height="250" width="200" style="margin-left: 25%;">
+                    {% else %}
+                    <img class="rounded-circle account-img" src="{% static 'images/avatar.jpeg' %}" alt="Default-Profile" height="250" width="170px" >
+                {%endif%}
+                </div>
+            </div>
+            <br><br>
+             <div class="col-md-2"></div>
+           <div class="col-md-4">
+              <br>
+                <div class="card-image">
+                    {% if profile_detail.position%}
+                        <span>
+                            {% autoescape on %}
+                        <p > Position : {{profile_detail.position| safe}}</p>  
+                            {% endautoescape %}
+                        </span>
+                    {%else%}
+                    <p > Nothing is here</p> 
+                    {%endif%}
+            </div>
+           </div>
+        </div>
+        </div>
+            <div class="card shadow  ">
+                <h3 class="account-heading"><span class="mr-1 text-success username">
+                    {{ user.email }} </span>
+                    <a class="mt-2" data-toggle="modal" data-target="#ModalCenter"><i class="fa fa-cog mt-2"id="cog"></i></a>
+                </h3>
+                <div class="card-body">
+                <p class="text-left">Email: {{user.email}}</p>
+                {%if user.first_name%}
+                <p class ="text-left" >Fullname : <strong>{{user.first_name|title}} {{user.last_name|title}}</p></strong>
+                {%else%}
+                <p class ="text-left" >Fullname : <strong>No names Provided</p></strong>
+                {%endif%}
+
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="modal fade bd-example-modal-sm" id="ModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <a class="D-block mx-auto" href="{% url 'change-password'%}">
+                        <div> Change Password</div>
+                    </a>
+                    <hr>
+        
+                    <a class="D-block mx-auto" href="{% url 'logout' %}">
+                        <div> Log Out</div>
+                    </a>
+                    <hr>
+                    <a class="D-block mx-auto" href="" data-dismiss="modal">
+                        <div>Close</div>
+                    </a>
+              <div class="container-fluid">
+    <br>
+</div>  </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+{% endblock %}
