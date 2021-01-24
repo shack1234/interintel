@@ -32,6 +32,15 @@ SECRET_KEY = '+l(&2yxlggwpv=g2)ei7gwpt^moj6$j=m@3t)@y-f_an5#&5t='
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# Application definition
+# Application definition
+# Application definition
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST_USER ='maestrowebsites@gmail.com'
+EMAIL_HOST_PASSWORD ='gdrfldmhxiyebkry'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
 
 UPLOADCARE = {
 'pub_key': '3cedcabac93e222cbc52',
@@ -120,6 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
     messages.INFO: 'alert-info',
