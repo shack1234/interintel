@@ -1,0 +1,88 @@
+
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+ 
+  <link href="{% static 'css/styles.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template-->
+  <link href="{% static 'css/styles.min.css' %}" rel="stylesheet">
+  </head>
+  <br>
+<body class="bg-gradient-white">
+  <div class="container">
+   {% include 'partials/messages.html' %}    
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+      <div class="col-xl-10 col-lg-9 col-md-9">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+               <div class="col-lg-5 d-none d-lg-block bg">
+              <div class="card shadow m-0">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 35rem; height: 25rem;"
+                                src="{% static 'images/fp.jpeg' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+                </div>
+              <div class="col-lg-6">
+                <div class="p-5">
+                  <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                  </div>
+                  <form class="user" action="" method="POST">
+                    {% csrf_token%}
+                    <div class="form-group">
+                      <input type="text" name="username" class="form-control form-control-user"
+                        id="exampleInputPassword" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                      <input type="password" name="password" class="form-control form-control-user"
+                        id="exampleInputPassword" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                      <div class="custom-control custom-checkbox small">
+                        <input type="checkbox" class="custom-control-input" id="customCheck">
+                        <label class="custom-control-label" for="customCheck">Remember Me</label>
+                      </div>
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-info btn-user btn-block">Login</button>
+                    <hr>
+                  </form>
+                 <div class="text-center">
+                    <span><a class="small"  href="{% url 'index' %}"> <strong style="font-size:medium;color:black">  Go back Home</strong></a></span>
+                  </div>
+                  <div class="text-center">
+                    
+                    <span  style="color:blue">Don't have an account? <a class="small" href="{% url 'signup' %}"> <strong style="font-size:medium">Create new Account</strong></a></span>
+                  </div>
+                   <div class="text-center">
+                  <span>Forgot Password? <a class="small"  href="{% url 'password_reset'%}"> Reset Now</a></span>
+                  </div>
+                </div>
+              </div>
+                <div class="col-lg-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Bootstrap core JavaScript-->
+ 
+</body>
+</html>
+{% endblock %}
