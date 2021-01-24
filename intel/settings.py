@@ -33,14 +33,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 # Application definition
-# Application definition
-# Application definition
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST_USER ='maestrowebsites@gmail.com'
-EMAIL_HOST_PASSWORD ='gdrfldmhxiyebkry'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
+
 
 UPLOADCARE = {
 'pub_key': '3cedcabac93e222cbc52',
@@ -105,8 +98,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'intel',
-        'USER':'shadrack',
-        'PASSWORD':'1234'
+        'USER':'',
+        'PASSWORD':''
     }
 }
 db_from_env = dj_database_url.config(conn_max_age=600)
@@ -129,10 +122,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-<<<<<<< HEAD
-
-=======
->>>>>>> 2e4e4ee4f171ca05fc11138eb42bcdbedaa5374c
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
     messages.INFO: 'alert-info',
