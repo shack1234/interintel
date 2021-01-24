@@ -27,3 +27,8 @@ class RegisterForm(UserCreationForm):
 class LoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput())
     password = forms.CharField(widget=forms.PasswordInput())
+    
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ['user']

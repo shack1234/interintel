@@ -11,8 +11,8 @@ from django.core.mail import send_mail
 
 # Create your models here.
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    position = models.CharField(max_length=30, blank=True, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='profile')
+    bio =  models.TextField()
     profile_picture =ImageField()
 
     def __str__(self):
@@ -35,6 +35,11 @@ class Profile(models.Model):
     @classmethod
     def filter_by_id(cls, id):
         profile = Profile.objects.filter(user = id).all()
+        return profile
+   
+    @classmethod
+    def get_by_id(cls, id):
+        profile = Profile.objects.get(user = id)
         return profile
 
 

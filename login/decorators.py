@@ -5,7 +5,7 @@ from django.contrib import messages
 def unauthenticated_user(view_func):
     def wrapper_func(request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('/')
+            return redirect('index')
         else:
             return view_func(request, *args, **kwargs)
 
@@ -17,6 +17,7 @@ def allowed_users(allowed_roles=[]):
             group = None
             if request.user.groups.exists():
                 group = request.user.groups.all()[0].name
+
             if group in allowed_roles:
                 return view_func(request, *args, **kwargs)
             else:
@@ -29,11 +30,15 @@ def admin_only(view_func):
         group = None
         if request.user.groups.exists():
             group = request.user.groups.all()[0].name
+
         if group == 'user':
             #messages.success(request, 'You are not authorized to view this Dashboad')
-            return redirect('home')
+            return redirect('index')
+
         if group == 'admin':
             return view_func(request, *args, **kwargs)
+
         else:
             return view_func(request, *args, **kwargs)
+
     return wrapper_function

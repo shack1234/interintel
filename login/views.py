@@ -7,7 +7,6 @@ from .serializer import ProfileSerializer
 from .forms import *
 from .models import *
 from .decorators import unauthenticated_user, allowed_users, admin_only
-import requests
 from django.http import HttpResponseRedirect, HttpResponse
 from rest_framework import status
 from rest_framework import generics
@@ -23,7 +22,6 @@ def indexPage (request):
         'title':title
     }
     return render(request, 'home.html',context)
-
 @unauthenticated_user
 def register(request):
     if request.method =='POST':
@@ -33,19 +31,21 @@ def register(request):
             username = form.cleaned_data.get('username')
             form = form.cleaned_data.get('email')
             subject="Thank you for Registering with Us "
-            message ="Thank you for registering with InterIntel Technologies"
+            message ="Thank you for your registrations to our website .You will now be able to shop our amazing products anytime of the day at your comfort"
             email = EmailMessage(subject, message, to=[form])
             email.send()
-            messages.success(request, 'Account for' + ' ' + username + 'was created successfully!!')
+            messages.success(request, 'Account for ' + ' ' + username + 'was created successfully!!')
             return redirect('login')
         else:
             messages.error(request, 'Error creating the account. check if all the fields were correct and try again')
             return redirect('signup')
     else:
         form = RegisterForm()
+
     context = {
         'form':form
         }        
+    
     return render(request, 'registration/register.html', context)
 
 @unauthenticated_user
@@ -56,27 +56,26 @@ def loginPage(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, 'Successfully Logged in as' + ' ' + username)
+            messages.success(request, 'Successfully Logged in as ' + ' ' + username)
             return redirect('index')
         else:
             messages.error(request, 'Invalid Username or Password')
-    context={}
-    return render(request, 'registration/login.html', context)
+            
+    return render(request, 'registration/login.html')
 
-def logoutUser(request):
+def logout(request):
     logout(request)
-    messages.success(request, 'You have logged out. Thank you for using our services.')
-    return redirect('index')
+    messages.success(request,'You have logged out.Thank you for using our services')
+    return redirect('/')
 
 @login_required(login_url='login')
 def profile(request, username):
-    title ="Profile Page"
+    title=username+'s'" Profile"
     profile_details =User.objects.get(username=username)
     try :
         profile_detail = Profile.get_by_id(profile_details.id)
     except:
         profile_detail = Profile.filter_by_id(profile_details.id)
-     
     context ={
         'profile_details':profile_details,
         'profile_detail':profile_detail,
@@ -84,6 +83,40 @@ def profile(request, username):
        
     }
     return render(request, 'profile/profile.html',context)
+
+
+@login_required(login_url='/accounts/login/')
+def edit_profile(request,username):
+   
+    profile_details =User.objects.get(username=username)
+    title="Edit " + username +'s'" Profile"
+    try :
+        profile_detail = Profile.get_by_id(profile_details.id)
+    except:
+        profile_detail = Profile.filter_by_id(profile_details.id)
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            edit = form.save(commit=False)
+            edit.user = request.user
+            edit.save()
+            messages.success(request,'You Successfully updated your Profile')
+            return redirect('profile', username=username)
+        else:
+            messages.error(request,'Error occured , check if all the fields are filled')
+    else:
+        form = ProfileForm()
+    context ={
+        'profile_details':profile_details,
+        'profile_detail':profile_detail,
+        'form':form,
+        'title':title,
+    }
+    return render(request, 'profile/edit-profile.html',context)
+
+
+
 
 class ChangePasswordView(generics.UpdateAPIView):
     """
@@ -118,3 +151,4 @@ class ChangePasswordView(generics.UpdateAPIView):
             return Response(response)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
