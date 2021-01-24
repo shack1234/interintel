@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import 'bootstrap/bootstrap';
 @import 'bootstrap/variables';
 
@@ -2492,3 +2493,30 @@ textarea.form-control {
     stroke-dashoffset: -136px;
   }
 }
+=======
+// Your custom styles
+
+/* Required height of parents of the Half Page Carousel for proper displaying carousel itself */
+html,
+body,
+.view {
+  height: 100%; }
+
+/* Half Page Carousel itself*/
+.carousel {
+  height: 50%; }
+  .carousel .carousel-inner {
+    height: 100%; }
+    .carousel .carousel-inner .carousel-item,
+    .carousel .carousel-inner .active {
+      height: 100%; }
+
+/* Adjustment for mobile devices*/
+@media (max-width: 776px) {
+  .carousel {
+    height: 100%; } }
+
+/* Footer color for sake of consistency with Navbar */
+.page-footer {
+  background-color: #929FBA; }
+>>>>>>> 2e4e4ee4f171ca05fc11138eb42bcdbedaa5374c

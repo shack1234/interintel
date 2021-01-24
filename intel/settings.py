@@ -129,7 +129,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2e4e4ee4f171ca05fc11138eb42bcdbedaa5374c
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
     messages.INFO: 'alert-info',
